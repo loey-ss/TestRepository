@@ -1,0 +1,18 @@
+@startuml
+participant Main
+participant calculate
+participant getInput
+
+Main -> calculate : calculate()
+activate calculate
+
+calculate -> getInput : getInput()
+activate getInput
+getInput --> calculate : 入力データ
+ deactivate getInput
+
+calculate --> Main : 計算結果
+ deactivate calculate
+
+Main -> Main : 結果を出力
+@enduml
