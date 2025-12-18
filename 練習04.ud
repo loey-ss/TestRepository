@@ -1,0 +1,22 @@
+@startuml
+[*] --> Order_Creation : Initial State
+
+Order_Creation --> Order_Confirmation : Add item to cart
+
+Order_Confirmation --> Payment_Pending : Confirm order
+
+Payment_Pending --> Preparing_Shipment : Payment completed
+Payment_Pending --> Payment_Failed : Payment failed
+Payment_Failed --> Payment_Pending : Retry payment
+
+Preparing_Shipment --> Delivered : Shipment completed
+
+' Cancellation allowed before payment is completed
+Order_Creation --> Cancelled : Cancel order
+Order_Confirmation --> Cancelled : Cancel order
+Payment_Pending --> Cancelled : Cancel order
+Payment_Failed --> Cancelled : Cancel order
+
+Cancelled --> [*]
+Delivered --> [*]
+@enduml
